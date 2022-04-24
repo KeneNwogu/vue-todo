@@ -1,18 +1,10 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld msg="Welcome to Your Vue.js App" />
+  <div class="container">
+    <Header />
+    <TodoArea v-if="Object.keys(user).length > 0" />
+  </div>
+  <Authenticate v-if="Object.keys(user).length < 1" />
 </template>
-
-<script>
-import HelloWorld from "./components/HelloWorld.vue";
-
-export default {
-  name: "App",
-  components: {
-    HelloWorld,
-  },
-};
-</script>
 
 <style>
 #app {
@@ -24,3 +16,26 @@ export default {
   margin-top: 60px;
 }
 </style>
+
+<script>
+import { mapState } from 'vuex'
+import Header from "./components/Header.vue";
+import TodoArea from "./components/TodoArea.vue";
+import Authenticate from "@/components/Authenticate.vue"
+
+export default {
+  data(){
+    return {
+      
+    }
+  },
+  components: {
+    Header,
+    TodoArea,
+    Authenticate
+  },
+  computed: {
+      ...mapState(['user'])
+  }
+}
+</script>

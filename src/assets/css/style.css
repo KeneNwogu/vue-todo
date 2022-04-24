@@ -1,0 +1,467 @@
+@import url("https://fonts.googleapis.com/css?family=Josefin+Sans:100,200,300,regular,500,600,700,100italic,200italic,300italic,italic,500italic,600italic,700italic");
+
+:root {
+  /* Light Theme */
+  --very-light-gray: hsl(0, 0%, 98%);
+  --very-light-grayish-blue: hsl(236, 33%, 92%);
+  --light-grayish-blue: hsl(233, 11%, 84%);
+  --dark-grayish-blue: hsl(236, 9%, 61%);
+  --very-dark-grayish-blue: hsl(235, 19%, 35%);
+  --bright-blue: hsl(220, 98%, 61%);
+  --check-bg: linear-gradient(hsl(192, 100%, 67%), hsl(280, 87%, 65%));
+
+
+  /* Dark theme */
+  --very-dark-blue: hsl(235, 21%, 11%);
+  --very-dark-desaturated-blue: hsl(235, 24%, 19%);
+  --light-grayish-blue: hsl(234, 39%, 85%);
+  --light-grayish-blue-hover: hsl(236, 33%, 92%);
+  --dark-grayish-blue: hsl(234, 11%, 52%);
+  --very-dark-grayish-blue: hsl(233, 14%, 35%);
+  --very-dark-grayish-blue: hsl(237, 14%, 26%);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 18px;
+}
+
+body {
+  background: url(".././images/bg-desktop-light.jpg") no-repeat;
+  background-size: 100% 300px;
+  padding-top: 50px;
+  background-color: var(--very-light-grayish-blue);
+  min-height: 100vh;
+  transition: all 0.3s ease-in-out;
+}
+
+.container {
+  max-width: 520px;
+  margin: 20px auto;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 30px;
+}
+
+header h1 {
+  color: var(--very-light-gray);
+  text-transform: uppercase;
+  letter-spacing: 8px;
+  font-size: 2em;
+}
+
+.theme-toggle img {
+  cursor: pointer;
+}
+
+.theme-toggle{
+cursor: pointer;
+height: 50px;
+}
+/* Chexbox start */
+.circle {
+  width: 21px;
+  height: 20px;
+  border-radius: 35px;
+  border: 1px solid var(--light-grayish-blue);
+
+}
+
+.check-box {
+  width: 23px;
+  height: 20px;
+  border-radius: 50%;
+  background-color:  var(--light-grayish-blue);
+  cursor: pointer;
+  padding: 1px;
+  transition: background-image 0.25s;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.check-box-inner{
+  background-color: white;
+  height: 100%;
+  width: 100%;
+  border-radius: 50%;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.checked {
+  background: var(--check-bg);
+  border: none;
+}
+
+.todo-item.completed {
+  text-decoration: line-through;
+  color: var(--light-grayish-blue);
+}
+
+.check-box img {
+  pointer-events: none;
+}
+
+.check-box:hover {
+  background-image: var(--check-bg);
+}
+
+/* Chexbox end */
+
+/* Input Todo start */
+.input-box {
+  background-color: var(--very-light-gray);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  padding-left: 20px;
+  margin-bottom: 20px;
+}
+
+.add {
+  width: 100%;
+  padding: 15px;
+  height:60px;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  color: var(--very-dark-grayish-blue);
+}
+
+.add::placeholder{
+  color: var(--dark-grayish-blue) ;
+}
+
+/* Input Todo end */
+
+/* Todos */
+.todo-container {
+  background-color: white;
+  border-radius: 4px;
+  list-style: none;
+  margin-bottom: 30px;
+  min-height: auto;
+  box-shadow: 0 4px 17px -4px var(--dark-grayish-blue);
+}
+
+
+.todo-item {
+  display: flex;
+  color: var(--very-dark-grayish-blue);
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  height: 60px;
+  padding: 0 20px;
+  border-bottom: 1px solid var(--light-grayish-blue);
+}
+
+.text {
+  cursor: pointer;
+  width: 100%;
+  height:100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.text:hover .delete {
+  visibility: visible;
+}
+
+.delete{
+  visibility: hidden;
+  cursor: pointer;
+  transition: visibility 0.25s ease-in-out;
+}
+
+.todo-information {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+}
+
+.todo-information p,
+.counter {
+  font-size: 14px;
+  color: var(--dark-grayish-blue);
+  font-weight: 700;
+}
+
+button {
+  padding: 15px 10px;
+  font-size: 15px;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  font-weight: 700;
+  color: var(--dark-grayish-blue);
+}
+
+button:hover {
+  color: var(--very-dark-grayish-blue);
+}
+
+.btns {
+  display: flex;
+}
+
+.activeBtn {
+  color: var(--bright-blue) !important;
+}
+
+
+.error {
+  padding: 15px 0;
+  text-align: center;
+  font-size: 15px;
+  border-bottom: 1px solid var(--light-grayish-blue);
+  color: rgb(209, 44, 44);
+}
+
+/* Todos End */
+
+footer {
+  margin: 40px 0 0;
+}
+
+.last-para {
+  text-align: center;
+  color: var(--dark-grayish-blue);
+  font-size: 15px;
+  padding-bottom: 30px;
+  font-weight: 700;
+}
+
+.attribution {
+  text-align: center;
+}
+
+.attribution a {
+  color: hsl(228, 45%, 44%);
+}
+
+
+#light{
+  display: none;
+}
+
+
+/* Dark Theme */
+.dark{
+  background: url('.././images/bg-desktop-dark.jpg') no-repeat;
+  background-color: var(--very-dark-blue);
+  background-size: 100% 300px;
+}
+
+.dark .circle{
+  border: 1px solid var(--dark-grayish-blue);
+}
+
+.dark .check-box{
+  background-color:  var(--dark-grayish-blue);
+}
+
+.dark .input-box,.dark .todo-container,.dark .check-box-inner{
+  background-color: var(--very-dark-grayish-blue);
+}
+
+.dark .todo-container{
+  box-shadow: none;
+}
+
+.dark .add, .dark .todo-item{
+  color: var(--light-grayish-blue);
+}
+
+.dark .add::placeholder{
+  color:var(--dark-grayish-blue);
+}
+
+.dark .todo-item.completed{
+  color: var(--dark-grayish-blue);
+}
+
+.dark .check-box img{
+  display: none;
+}
+
+.dark .check-box-inner.checked img{
+  display: block;
+}
+
+.dark button:hover{
+  color: var(--light-grayish-blue-hover);
+}
+
+.dark .attribution{
+  color: var(--light-grayish-blue);
+}
+
+.dark .todo-item, .dark .error{
+  border-bottom: 1px solid var(--dark-grayish-blue);
+}
+
+/* If in dark mode by mobile preference show sun hide moon */
+.dark #dark{
+  display: none;
+}
+
+.dark #light{
+  display: block;
+}
+
+@media (max-width:900px) {
+  body{
+    background-size: auto;
+  }
+  header h1{
+    font-size: 1.5em;
+  }
+  .container {
+    width: 85%;
+    padding-bottom: 50px;
+  }
+
+  .delete{
+    visibility: visible;
+    ;
+  }
+
+  .todo-information {
+    flex-wrap: wrap;
+    position: relative;
+  }
+
+  .add{
+    height: 50px;
+  }
+
+  .todo-item {
+    gap: 10px;
+    height: 50px;
+  }
+
+  .text {
+    font-size: 12px;
+  }
+
+  .btns {
+    position: absolute;
+    justify-content: center;
+    background-color: white;
+    border-radius: 4px;
+    order: 3;
+    top: 68px;
+    left: 0;
+    width: 100%;
+  }
+
+  footer {
+    position: relative;
+    margin: 50px 0 30px;
+  }
+
+  .dark .btns{
+    background-color: var(--very-dark-grayish-blue);
+  }
+}
+
+@media (max-width:375px) {
+  body {
+    background: url(".././images/bg-mobile-light.jpg") no-repeat;
+    background-color: var(--very-light-grayish-blue);
+    padding-top: 5px;
+  }
+
+  .dark{
+    background: url('.././images/bg-mobile-dark.jpg') no-repeat;
+    background-color: var(--very-dark-blue);
+  }
+  .dark{
+
+  background: url('.././images/bg-mobile-dark.jpg') no-repeat;
+
+  background-color: var(--very-dark-blue);
+
+}
+}
+
+.dark .check-box, .dark .circle{
+  border: 1px solid var(--dark-grayish-blue);
+}
+
+.dark .input-box,.dark .todo-container{
+  background-color: var(--very-dark-grayish-blue);
+}
+
+.dark .todo-container{
+  box-shadow: none;
+}
+
+.dark .add, .dark .todo-item{
+  color: var(--light-grayish-blue);
+}
+
+.dark .add::placeholder{
+  color:var(--dark-grayish-blue);
+}
+
+.dark .todo-item.completed{
+  color: var(--dark-grayish-blue);
+}
+
+.dark .check-box img{
+  display: none;
+}
+
+.dark .check-box.checked img{
+  display: block;
+}
+
+.dark button:hover{
+  color: var(--light-grayish-blue-hover);
+}
+
+.dark .attribution{
+  color: var(--light-grayish-blue);
+}
+
+.dark .todo-item, .dark .error{
+  border-bottom: 1px solid var(--dark-grayish-blue);
+}
+
+/* If in dark mode by mobile preference show sun hide moon */
+.dark #dark{
+  display: none;
+}
+
+.dark #light{
+  display: block;
+}
+
+/* Styles for drag and drop */
+.sortable-chosen{
+  box-shadow: 3px 3px 12px rgba(0,0,0,0.3);
+}
+
+.sortable-drag{
+  opacity: 0;
+}
