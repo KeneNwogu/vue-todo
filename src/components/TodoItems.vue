@@ -77,7 +77,7 @@ export default {
     watch: {
         '$store.state.todos': function(){
             this.get_todos()
-            this.display_all()
+            // this.display_all()
         }
     }
 }
