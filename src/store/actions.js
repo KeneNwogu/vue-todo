@@ -77,5 +77,20 @@ export default {
         })
             .then((res) => res.json())
             .then(() => commit('DELETE_TODO', id))
+    },
+    edit_todo: ({ state, dispatch }, todo) => {
+        let edit = {
+            "task": todo.todo_name
+        }
+        fetch(`https://onetodoapi.herokuapp.com/todo/${todo.id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Basic ' + btoa(state.user.token + ':' + '')
+            },
+            body: JSON.stringify(edit)
+        })
+        .then((res) => res.json())
+        .then(() => dispatch('get_todos'))
     }
 }

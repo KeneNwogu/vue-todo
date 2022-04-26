@@ -1,5 +1,5 @@
 <template>
-    <main class="todo-container">
+    <main class="todo-container" @click="refresh_todo">
         <p v-show="todo_list.length <= 0" class="error">You have no {{ filter }} todos</p>
 
         <ul class="todos" id="items"> 
@@ -9,10 +9,14 @@
                         <img src="../assets/images/icon-check.svg" alt="check-box">
                     </div>
                 </div>
-                <div class="text">
+                <button class="text" @click="start_edit(todo)" v-if="!todo.editing" :disabled="todo.disabled">
                     {{ todo.todo_name }}
                     <img class="delete" src="../assets/images/icon-cross.svg" alt="delete todo" @click="delete_todo(todo.id)">
-                </div>
+                </button>
+                <form class="input-box" @submit.prevent="submit_edit(todo)" v-else>
+                    <input type="text" name="add" autocomplete="off" class="add" :placeholder="todo.todo_name || 'Edit Todo'" v-model="todo.todo_name" :disabled="todo.edited">
+                    <img class="delete" src="../assets/images/icon-cross.svg" alt="delete todo" @click="cancel_edit(todo)">
+                </form>
             </li>
         </ul>
 
@@ -30,6 +34,18 @@
     </main>
 </template>
 
+<style scoped>
+.todo-item{
+    position: relative;
+}
+.todo-item .input-box{
+    position: absolute;
+    width: 80%;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+</style>
+
 <script>
 import { mapState, mapActions } from 'vuex'
 export default {
@@ -37,7 +53,8 @@ export default {
         return {
             active_btn: 0,
             todo_list: [],
-            filter: undefined
+            filter: undefined,
+            before_edit: ''
         }
     },
     // props: {
@@ -53,7 +70,7 @@ export default {
         }
     },
     methods: {
-        ...mapActions(['mark_todo_complete', 'delete_action', 'get_todos']),
+        ...mapActions(['mark_todo_complete', 'delete_action', 'get_todos', 'edit_todo']),
         display_completed: function(){
             this.todo_list = this.todos.filter((task) => task.completed == true)
             this.active_btn = 2
@@ -83,11 +100,31 @@ export default {
             if(this.active_btn == 0) this.todo_list = this.todos
             if(this.active_btn == 1) this.todo_list = this.todos.filter((task) => task.completed == false)
             if(this.active_btn == 2) this.todo_list = this.todos.filter((task) => task.completed == true)
+        },
+        start_edit: function(todo){
+            console.log('editing')
+            todo.editing = true
+            this.before_edit = todo.todo_name
+            Array.from(this.todos).forEach(todo_el => {
+                if (todo_el.id != todo.id) todo_el.disabled = true
+            });
+        },
+        cancel_edit: function(todo){
+            todo.editing = false
+            todo.todo_name = this.before_edit
+            this.before_edit = ''
+            Array.from(this.todos).forEach(todo_el => {
+                if (todo_el.id != todo.id) todo_el.disabled = false
+            });
+        },
+        submit_edit: function(todo){
+            todo.edited = true
+            this.edit_todo(todo)
         }
     },
     watch: {
         todos: function(){
-            this.refresh_todo()
+            this.refresh_todo( )
         }
     }
 }
