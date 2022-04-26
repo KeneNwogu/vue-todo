@@ -32,7 +32,7 @@ export default {
             })
             .catch(() => commit('LOGOUT'))
     },
-    create_todo: ({ state, commit }, payload) => {
+    create_todo: ({ state, commit, dispatch }, payload) => {
         payload = {
             'task': payload.task
         }
@@ -48,6 +48,7 @@ export default {
             .then((res) => res.json())
             .then((data) => {
                 commit('ADD_TODO', { todo_name: payload.task, completed: false })
+                dispatch('get_todos')
                 console.log(data, 'add mut')
             })
     },

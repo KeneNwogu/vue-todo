@@ -1,6 +1,6 @@
 <template>
     <main class="todo-container">
-        <p v-show="todo_list.length <= 0" class="error">You have no todos completed</p>
+        <p v-show="todo_list.length <= 0" class="error">You have no {{ filter }} todos</p>
 
         <ul class="todos" id="items"> 
             <li v-for="todo in todo_list" class="todo-item" :class="todo.completed ? 'completed' : ''" :key="todo.id">
@@ -36,7 +36,8 @@ export default {
     data(){
         return {
             active_btn: 0,
-            todo_list: []
+            todo_list: [],
+            filter: undefined
         }
     },
     // props: {
@@ -56,28 +57,37 @@ export default {
         display_completed: function(){
             this.todo_list = this.todos.filter((task) => task.completed == true)
             this.active_btn = 2
+            this.filter = 'completed'
         },
         display_active: function(){
             this.todo_list = this.todos.filter((task) => task.completed == false)
             this.active_btn = 1
+            this.filter = 'active'
         },
         display_all: function(){
             this.todo_list = this.todos
             this.active_btn = 0
+            this.filter = undefined
         },
         mark_complete: function(id){
             console.log(id)
             this.mark_todo_complete(id)
+            this.refresh_todo()
         },
         delete_todo: function(id){
             console.log('delete', id)
             this.delete_action(id)
+            this.refresh_todo()
+        },
+        refresh_todo: function(){
+            if(this.active_btn == 0) this.todo_list = this.todos
+            if(this.active_btn == 1) this.todo_list = this.todos.filter((task) => task.completed == false)
+            if(this.active_btn == 2) this.todo_list = this.todos.filter((task) => task.completed == true)
         }
     },
     watch: {
-        '$store.state.todos': function(){
-            this.get_todos()
-            // this.display_all()
+        todos: function(){
+            this.refresh_todo()
         }
     }
 }

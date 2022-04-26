@@ -37,6 +37,7 @@ export default {
           "task": item
         }
         this.create_todo(todo)
+        this.get_todos()
         event.target.elements.add.value = ''
       },
       display_completed: function(){

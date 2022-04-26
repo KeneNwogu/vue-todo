@@ -11,7 +11,6 @@ export default {
     },
     ADD_TODO: (state, data) => {
         console.log(data)
-        state.todos.push(data)
         console.log('state:', state.todos)
     },
     MARK_COMPLETE: (state, id) => {
