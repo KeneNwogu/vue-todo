@@ -8,8 +8,8 @@ export default {
         })
             .then((res) => res.json())
             .then((data) => {
-                console.log(data)
                 context.commit('LOGIN', data)
+                return false
             })
     },
 

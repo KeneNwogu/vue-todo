@@ -16,7 +16,10 @@
                 <label for="password">Password:</label>
                 <input type="password" id="password" name="user_password" v-model="sign_up.password">
             </fieldset>
-            <button type="submit">Sign Up</button>
+            <button type="submit">
+                Sign Up
+                <Preloader v-if="loading" />
+            </button>
             <p style="margin-top: 20px">Already have an account? <a href="" @click.prevent="swap_page">Login</a></p>
         </form> 
 
@@ -29,8 +32,13 @@
                 <label for="password">Password:</label>
                 <input type="password" id="password" name="user_password" v-model="login.password">
             </fieldset>
-            <button type="submit">Log in</button>
-            <p style="margin-top: 20px">Don't have an account? <a href="" @click.prevent="swap_page">Register</a></p>
+            <button type="submit">
+                Log in
+                <Preloader v-if="loading" />
+            </button>
+            <p style="margin-top: 20px">Don't have an account? 
+                <a href="" @click.prevent="swap_page">Register</a>
+            </p>
         </form>
     </div>
 </template>
@@ -40,13 +48,19 @@
 </style>
 <script>
 import { mapActions } from 'vuex'
+import Preloader from './Preloader.vue'
+
 export default {
     name: 'Authenticate',
+    components: {
+        Preloader
+    },
     data(){
         return {
             current_page: 0,
             message: '',
             success: true,
+            loading: false,
             sign_up: {
                 username: '',
                 email: '',
@@ -61,7 +75,7 @@ export default {
     methods: {
         ...mapActions(['login_']),
         register: function(payload){
-            console.log(JSON.stringify(payload))
+            this.loading = true
             fetch('https://onetodoapi.herokuapp.com/user', {
                 method: 'post',
                 headers: {
@@ -74,16 +88,17 @@ export default {
                     else return res.json()
                 })
                 .then((data) => {
-                    console.log(data)
+                    this.loading = false
                     this.message = data
-                    console.log(this.message)
                     this.current_page = 1
                 })
                 .catch((message) => {
+                    this.loading = false
                     message.then((data) => {
                         this.current_page = 0
                         this.message = data
                         this.success = false
+                        this.loading = false
                         console.log('message', message)
                     })
                 })
@@ -108,7 +123,8 @@ export default {
                 username: this.login.email,
                 password: this.login.password
             }
-            this.login_(payload)
+            this.loading = true
+            this.loading = this.login_(payload)
         }
     }
 }
