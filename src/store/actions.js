@@ -92,5 +92,19 @@ export default {
         })
         .then((res) => res.json())
         .then(() => dispatch('get_todos'))
+    },
+    clear_completed_todos: ({ state, dispatch }) => {
+        fetch(`https://onetodoapi.herokuapp.com/todo/completed`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Basic ' + btoa(state.user.token + ':' + '')
+            }
+        })
+        .then(res => res.json())
+        .then(data => {
+            console.log(data)
+            dispatch('get_todos')
+        })
     }
 }

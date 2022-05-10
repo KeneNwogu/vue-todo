@@ -29,7 +29,7 @@
                 <button :class="active_btn == 2 ? 'activeBtn' : ''" @click="display_completed" ref="filter">Completed</button>    
             </div>
 
-            <button class="delete-all">Clear Completed</button>
+            <button class="delete-all" @click="clear_completed">Clear Completed</button>
         </div>
     </main>
 </template>
@@ -70,7 +70,7 @@ export default {
         }
     },
     methods: {
-        ...mapActions(['mark_todo_complete', 'delete_action', 'get_todos', 'edit_todo']),
+        ...mapActions(['mark_todo_complete', 'delete_action', 'get_todos', 'edit_todo', 'clear_completed_todos']),
         display_completed: function(){
             this.todo_list = this.todos.filter((task) => task.completed == true)
             this.active_btn = 2
@@ -120,11 +120,15 @@ export default {
         submit_edit: function(todo){
             todo.edited = true
             this.edit_todo(todo)
+        },
+        clear_completed: function(){
+            this.clear_completed_todos()
+            this.refresh_todo()
         }
     },
     watch: {
         todos: function(){
-            this.refresh_todo( )
+            this.refresh_todo()
         }
     }
 }
